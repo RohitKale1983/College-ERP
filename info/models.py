@@ -12,15 +12,15 @@ sex_choice = (
 )
 
 time_slots = (
-    ('7:30 - 8:30', '7:30 - 8:30'),
-    ('8:30 - 9:30', '8:30 - 9:30'),
-    ('9:30 - 10:30', '9:30 - 10:30'),
-    ('11:00 - 11:50', '11:00 - 11:50'),
-    ('11:50 - 12:40', '11:50 - 12:40'),
-    ('12:40 - 1:30', '12:40 - 1:30'),
-    ('2:30 - 3:30', '2:30 - 3:30'),
-    ('3:30 - 4:30', '3:30 - 4:30'),
-    ('4:30 - 5:30', '4:30 - 5:30'),
+    ('9:15 - 10:10', '9:15 - 10:10'),
+    ('10:10 - 11:05', '10:10 - 11:05'),
+    ('11:05 - 11:15', '11:05 - 11:15'),
+    ('11:15 - 12:10', '11:15 - 12:10'),
+    ('12:10 - 1:05', '12:10 - 1:05'),
+    ('1:05 - 1:50', '1:05 - 1:50'),
+    ('1:50 - 2:45', '1:50 - 2:45'),
+    ('2:45 - 3:40', '2:45 - 3:40'),
+    ('3:40 - 4:35', '3:40 - 4:35'),
 )
 
 DAYS_OF_WEEK = (
@@ -290,12 +290,9 @@ def create_marks(sender, instance, **kwargs):
                 except StudentCourse.DoesNotExist:
                     sc = StudentCourse(student=instance, course=ass.course)
                     sc.save()
-                    sc.marks_set.create(name='Internal test 1')
-                    sc.marks_set.create(name='Internal test 2')
-                    sc.marks_set.create(name='Internal test 3')
-                    sc.marks_set.create(name='Event 1')
-                    sc.marks_set.create(name='Event 2')
-                    sc.marks_set.create(name='Semester End Exam')
+                    sc.marks_set.create(name='Unit test 1')
+                    sc.marks_set.create(name='Unit test 2')
+                    sc.marks_set.create(name='Insem')
         elif hasattr(instance, 'course'):
             stud_list = instance.class_id.student_set.all()
             cr = instance.course
@@ -305,12 +302,9 @@ def create_marks(sender, instance, **kwargs):
                 except StudentCourse.DoesNotExist:
                     sc = StudentCourse(student=s, course=cr)
                     sc.save()
-                    sc.marks_set.create(name='Internal test 1')
-                    sc.marks_set.create(name='Internal test 2')
-                    sc.marks_set.create(name='Internal test 3')
-                    sc.marks_set.create(name='Event 1')
-                    sc.marks_set.create(name='Event 2')
-                    sc.marks_set.create(name='Semester End Exam')
+                    sc.marks_set.create(name='Unit test 1')
+                    sc.marks_set.create(name='Unit test 2')
+                    sc.marks_set.create(name='Insem')
 
 
 def create_marks_class(sender, instance, **kwargs):
