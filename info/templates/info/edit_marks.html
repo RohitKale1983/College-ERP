@@ -21,9 +21,9 @@
                     {% for m in m_list %}
                     <tr>
                     <td>{{m.studentcourse.student.name}}</td>
-                    <td>{{ m.total_marks }}</td>
+                    <td>{{ 30}}</td>
                     <td>
-                        <input type="number" name="{{ m.studentcourse.student.USN }}" min="0" max="{{ m.total_marks }}" value="{{ m.marks1 }}">
+                        <input type="number" name="{{ m.studentcourse.student.USN }}" min="0" max="30" value="{{ m.marks1 }}">
                     </td>
                     </tr>
                 {% endfor %}

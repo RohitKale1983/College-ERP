@@ -33,12 +33,9 @@ DAYS_OF_WEEK = (
 )
 
 test_name = (
-    ('Internal test 1', 'Internal test 1'),
-    ('Internal test 2', 'Internal test 2'),
-    ('Internal test 3', 'Internal test 3'),
-    ('Event 1', 'Event 1'),
-    ('Event 2', 'Event 2'),
-    ('Semester End Exam', 'Semester End Exam'),
+    ('Unit test 1', 'Unit test 1'),
+    ('Unit test 2', 'Unit test 2'),
+    ('Insem', 'Insem'),
 )
 
 
@@ -230,32 +227,21 @@ class StudentCourse(models.Model):
 
 class Marks(models.Model):
     studentcourse = models.ForeignKey(StudentCourse, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, choices=test_name, default='Internal test 1')
+    name = models.CharField(max_length=50, choices=test_name, default='Unit test 1')
     marks1 = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     class Meta:
         unique_together = (('studentcourse', 'name'),)
 
-    @property
-    def total_marks(self):
-        if self.name == 'Semester End Exam':
-            return 100
-        return 20
-
 
 class MarksClass(models.Model):
     assign = models.ForeignKey(Assign, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, choices=test_name, default='Internal test 1')
+    name = models.CharField(max_length=50, choices=test_name, default='Unit test 1')
     status = models.BooleanField(default='False')
 
     class Meta:
         unique_together = (('assign', 'name'),)
 
-    @property
-    def total_marks(self):
-        if self.name == 'Semester End Exam':
-            return 100
-        return 20
 
 
 class AttendanceRange(models.Model):
