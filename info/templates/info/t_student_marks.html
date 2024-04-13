@@ -1,43 +1,51 @@
 {% extends 'info/base.html' %}
-    {% load static %}
+{% load static %}
 
-    {% block content %}
-                  <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-table"></i>
-            <b>Marks</b></div>
-            <div class="card-body">
-              <div class="table-responsive">
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">Marks</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Dashboard</a></li>
+        <li class="breadcrumb-item active">Marks</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            <b>Marks</b>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                        <th>Student USN</th>
-                        <th>Student Name</th>
-                        <th>Unit test 1</th>
-                        <th>Unit test 2</th>
-                        <th>Insem</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for sc in sc_list %}
-                    <tr>
-                        <td>{{ sc.student_id }}</td>
-                        <td><b>{{ sc.student.name }} </b></td>
-                        {% for m in sc.marks_set.all %}
-                            <td>{{ m.marks1 }}</td>
+                    <thead>
+                        <tr>
+                            <th>Student USN</th>
+                            <th>Student Name</th>
+                            <th>Unit Test 1</th>
+                            <th>Unit Test 2</th>
+                            <th>Insem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sc in sc_list %}
+                        <tr>
+                            <td>{{ sc.student_id }}</td>
+                            <td><b>{{ sc.student.name }}</b></td>
+                            {% for m in sc.marks_set.all %}
+                                <td>{{ m.marks1 }}</td>
+                            {% empty %}
+                                <td>N/A</td>
+                            {% endfor %}
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No student marks available</td>
+                        </tr>
                         {% endfor %}
-                    </tr>
-                    {% empty %}
-                            <p>student has no courses</p>
-                    {% endfor %}
-
-                  </tbody>
+                    </tbody>
                 </table>
-              </div>
+                <button class="btn btn-primary" onclick="window.print()">Print</button>
             </div>
-          </div>
-
-
-    {% endblock %}
-
-
+        </div>
+    </div>
+</div>
+{% endblock %}
