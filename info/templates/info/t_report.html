@@ -11,17 +11,29 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table"></i>
-            <b>Marks</b>
+            <b>Reports</b>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th style="width: 25%">Student USN</th>
-                            <th style="width: 25%">Student Name</th>
-                            <th style="width: 25%">Attendance</th>
-                            <th style="width: 25%">CIE</th>
+                            <th style="width: 25%">
+                                Student USN
+                                <button class="btn btn-link btn-sort" onclick="sortTable(0)"><i class="fas fa-sort"></i></button>
+                            </th>
+                            <th style="width: 25%">
+                                Student Name
+                                <button class="btn btn-link btn-sort" onclick="sortTable(1)"><i class="fas fa-sort"></i></button>
+                            </th>
+                            <th style="width: 25%">
+                                Attendance
+                                <button class="btn btn-link btn-sort" onclick="sortTable(2)"><i class="fas fa-sort"></i></button>
+                            </th>
+                            <th style="width: 25%">
+                                CIE
+                                <button class="btn btn-link btn-sort" onclick="sortTable(3)"><i class="fas fa-sort"></i></button>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,4 +60,44 @@
         </div>
     </div>
 </div>
+
+<script>
+    function sortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch, sortOrder;
+        table = document.getElementById("dataTable");
+        switching = true;
+        // Set the initial sort order to ascending if it's not already defined
+        sortOrder = table.getAttribute('data-sort-order') || 'asc';
+        if (sortOrder === 'asc') {
+            table.setAttribute('data-sort-order', 'desc');
+        } else {
+            table.setAttribute('data-sort-order', 'asc');
+        }
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+                if (sortOrder === 'asc') {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+</script>
+
 {% endblock %}
