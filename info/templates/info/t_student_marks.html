@@ -12,17 +12,35 @@
         <div class="card-header">
             <i class="fas fa-table"></i>
             <b>Marks</b>
+            <div class="float-right">
+                <input type="text" id="searchInput" class="form-control rounded-pill" placeholder="Search by student name...">
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Student USN</th>
-                            <th>Student Name</th>
-                            <th>Unit Test 1</th>
-                            <th>Unit Test 2</th>
-                            <th>Insem</th>
+                            <th>
+                                Student USN
+                                <button class="btn btn-link btn-sort" onclick="sortTable(0)"><i class="fas fa-sort"></i></button>
+                            </th>
+                            <th>
+                                Student Name
+                                <button class="btn btn-link btn-sort" onclick="sortTable(1)"><i class="fas fa-sort"></i></button>
+                            </th>
+                            <th>
+                                Unit Test 1
+                                <button class="btn btn-link btn-sort" onclick="sortTable(2)"><i class="fas fa-sort"></i></button>
+                            </th>
+                            <th>
+                                Unit Test 2
+                                <button class="btn btn-link btn-sort" onclick="sortTable(3)"><i class="fas fa-sort"></i></button>
+                            </th>
+                            <th>
+                                Insem
+                                <button class="btn btn-link btn-sort" onclick="sortTable(4)"><i class="fas fa-sort"></i></button>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,4 +66,61 @@
         </div>
     </div>
 </div>
+
+<script>
+    var ascending = true;
+
+    function sortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("dataTable");
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+                if (ascending) {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+        // Reverse the sorting order for the next click
+        ascending = !ascending;
+    }
+
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("dataTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1]; // Index 1 for student name column
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    });
+</script>
+
+
 {% endblock %}
