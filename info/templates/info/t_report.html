@@ -12,6 +12,9 @@
         <div class="card-header">
             <i class="fas fa-table"></i>
             <b>Reports</b>
+            <div class="float-right">
+                <input type="text" id="searchInput" class="form-control rounded-pill" style="width: 300px;" placeholder="Search by student name...">
+            </div>            
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -98,6 +101,26 @@
             }
         }
     }
+
+    // Function to handle search functionality
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("dataTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    });
 </script>
 
 {% endblock %}
